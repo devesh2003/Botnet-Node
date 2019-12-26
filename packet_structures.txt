@@ -1,0 +1,36 @@
+1) Inital Packet
+
+Code : <10sH30s20s
+
+10 bytes key (10s)
+2 bytes Packet type [Integer] (H)
+30 bytes OS (30s)
+20 bytes location (20s)
+
+
+2) Beacon Packet 
+
+Code : <10sHH
+
+10 bytes key (10s) [Check every time]
+2 bytes Packet Type [Integer] (H)
+2 bytes interval [Integer] (H) --> Default interval 10 seconds
+
+3) Beacon Response Packet
+
+Code : <H20s
+
+2 bytes Data [Integer] [Indicates if there is a command] (H) (1 --> True, 0 --> False)
+x bytes Command [If any] (xs)
+
+4) Data Packet
+
+Code : <10sHH20s
+
+10 bytes key (10s)
+2 bytes Packet Type [Integer] (H)
+2 bytes command size (H)
+2 bytes response size (H)
+20 bytes CMD (20s)
+Data ... (xs)
+

