@@ -8,7 +8,7 @@ global server,ip,port,status,bots
 bots = []
 status = False
 server = socket.socket()
-ip = '127.0.0.1'
+ip = '192.168.43.223'
 port = 2003
 
 def start():

